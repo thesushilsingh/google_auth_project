@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopify Orders Dashboard</title>
+</head>
+
+<body>
+    <form method="GET" action="{% url 'get_shopify_order' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="last_order_id" value="{{ last_order_id }}">
+        <button type=submit>Retrive Order</button>
+    </form>
+    {% if saved_orders %}
+    {% for order in saved_orders %}
+    <p>Name: {{ order.name }}</p>
+    <p>Email: {{ order.email }}</p>
+    <p>Created_at: {{ order.created_at }}</p>
+    <p>Updated_at: {{ order.updated_at }}</p>
+    <p>Price: {{ order.price }}</p>
+    <p>Order_ID: {{order.order_id}}</p>
+    <hr>
+    {% endfor %}
+    {% else %}
+    <p>No orders to display!</p>
+    {% endif %}
+</body>
+
+</html>
